@@ -1,0 +1,35 @@
+<%- include("../layouts/main", {
+  title: title || "Appointments",
+  pageCss: "admin.css",
+  body: `
+  <div class="admin-wrap">
+    <div class="admin-head">
+      <h1>Appointments</h1>
+      <div class="admin-nav">
+        <a class="pill" href="/admin">Dashboard</a>
+        <a class="pill" href="/admin/orders">Orders</a>
+        <a class="pill active" href="/admin/appointments">Appointments</a>
+        <a class="pill" href="/admin/messages">Messages</a>
+      </div>
+    </div>
+
+    ${appointments.length ? `
+      <table class="table">
+        <thead><tr><th>Booked At</th><th>Date/Time</th><th>Patient</th><th>Email</th><th>Phone</th><th>Status</th></tr></thead>
+        <tbody>
+          ${appointments.map(a => `
+            <tr>
+              <td>${new Date(a.createdAt).toLocaleString()}</td>
+              <td>${a.appointmentDate} ${a.appointmentTime}</td>
+              <td>${a.patientName}</td>
+              <td>${a.email}</td>
+              <td>${a.phone}</td>
+              <td>${a.status}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    ` : `<p class="muted">No appointments yet.</p>`}
+  </div>
+  `
+}) %>

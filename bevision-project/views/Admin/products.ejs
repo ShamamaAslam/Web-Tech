@@ -1,0 +1,53 @@
+<%- include("../layouts/main", {
+  title: title || "Products",
+  pageCss: pageCss || "admin.css",
+  body: `
+  <div class="admin-wrap">
+    <div class="admin-head">
+      <h1>Products</h1>
+      <div class="admin-nav">
+        <a class="pill" href="/admin">Dashboard</a>
+        <a class="pill active" href="/admin/products">Products</a>
+        <a class="pill ghost" href="/admin/products/new">+ Add Product</a>
+
+        <a class="pill" href="/admin/orders">Orders</a>
+        <a class="pill" href="/admin/appointments">Appointments</a>
+        <a class="pill" href="/admin/messages">Messages</a>
+      </div>
+    </div>
+
+    ${products.length ? `
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th style="width:180px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${products.map(p => `
+            <tr>
+              <td>
+                <img src="${p.image || "/images/placeholder.jpg"}" style="width:60px;height:60px;object-fit:cover;border-radius:10px;border:1px solid #eee;">
+              </td>
+              <td>${p.name}</td>
+              <td>${p.category}</td>
+              <td>Rs ${p.price}</td>
+              <td>
+                <a class="link" href="/admin/products/edit/${p._id}">Edit</a>
+
+                <form action="/admin/products/delete/${p._id}" method="POST" style="display:inline;">
+                  <button class="danger-btn" type="submit" onclick="return confirm('Delete this product?')">Delete</button>
+                </form>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    ` : `<p class="muted">No products found.</p>`}
+  </div>
+  `
+}) %>

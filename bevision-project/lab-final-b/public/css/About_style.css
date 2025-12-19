@@ -1,0 +1,315 @@
+.main-section {
+  box-shadow: 0 0 30px rgba(185, 180, 180, 0.3); 
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 1200px;
+  margin: 0 auto; 
+}
+.divback {
+  background-image: url("/images/home_vision_about_eye.png");
+  background-size: 125% auto; 
+  background-position: center top;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
+  margin-top: 0%;
+}
+body {
+  font-family: 'Cinzel', Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+header {
+  background-color: #183964;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px;
+  height: 75px;
+  position: relative; 
+  top: 20px;
+  left: 0; 
+  right: 0; 
+  z-index: 1000;
+}
+
+.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.hero-text {
+  margin:0px;
+  padding: 0px;}
+
+#Subheader{
+padding: 100px 10px 100px 36.6px;
+}
+.hero-text h1 {
+  font-size: 60px;
+  color: #001E5A;
+  font-family:  'Cinzel','Helevetica','Arial','sans-serif';
+  margin: 0px;
+}
+.hero-text p {
+  color: rgb(70, 68, 68);
+  font-size: 14px;
+  margin-bottom: 20px;
+   font-family: Georgia, 'Helevetica',Arial,sans-serif;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+.menu a:hover,
+.menu a.active {
+  background-color: rgba(119, 119, 146, 0.7);
+}
+.menu a.btn-buy {
+  color: rgb(68, 135, 211);
+}
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+#menu-toggle {
+  display: none;
+}
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+  .menu {
+    display: none;
+    flex-direction: column;
+    background: navy;
+    position: absolute;
+    top: 80px;
+    right: 30px;
+    padding: 20px;
+  }
+  #menu-toggle:checked + .menu-icon + .menu {
+    display: flex;
+  }
+}
+/* Outer white card that overlaps upwards, like the theme */
+.info-section {
+  position: relative;
+  max-width: 1200px;
+  margin: -10px auto 20px;              
+  padding: 0;                        
+  z-index: 3;
+}
+.info-box {
+  background-color:white;         
+  padding: 60px 70px 50px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.info-box h2 {
+  font-size: 38px;
+  color: #001E5A;
+  font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+  margin: 0 0 20px;
+}
+
+.info-box p {
+  font-size: 16px;
+  color: #A8A8A8;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0 0 30px;
+}
+
+.info-box .dots {
+  width: 40px;
+  margin: 10px auto 25px;
+  display: block;
+}
+/* GALLERY GRID - Updated */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 560px repeat(3, 166px);
+  grid-auto-rows: 151px;
+  column-gap: 25px;
+  row-gap: 25px;
+  margin-top: 40px;
+  justify-content: center;
+}
+
+/* Gallery item container - holds border and shadow */
+.gallery-item {
+  border: 4px solid #eeeeee;
+  box-shadow: 0 0 8px rgba(0,0,0,0.08);
+  border-radius: 3px;
+  overflow: hidden; /* IMPORTANT: hides the overflow when image moves */
+  position: relative;
+}
+
+/* Large image container */
+.gallery-item.large-item {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  width: 560px;
+  height: 327px;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.gallery-item:not(.large-item) img{
+  object-position: center top;
+  transition: object-position 0.4s ease;
+}
+.gallery-item:not(.large-item):hover img{
+  object-position: center bottom;
+}
+
+
+.info-box h3 {
+  color: white;
+  margin-bottom: 10px;
+  font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+  font-size: 27px;
+}
+.ourclinic {
+  margin-top: 40px;
+}
+
+.clinic-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.clinic-text {
+  display: grid;
+  grid-template-columns: repeat(2, 576px); /* EXACT WIDTH LIKE THEME */
+  column-gap: 20px;
+  row-gap: 25px;
+  justify-content: center;
+  padding: 40px 40px 0;
+}
+
+.clinic-text h3 {
+  grid-column: 1 / -1;        /* span both columns */
+  text-align: center;
+  font-size: 32px;
+  margin: 0 0 20px;
+}
+.para1,
+.para2,
+.clinic-para,
+.para4 {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #778A83;
+  font-family: Georgia, serif;
+  margin: 0 0 15px;
+  max-width: 576px;
+}
+.para1 {
+  max-height: 76px;    
+  overflow: hidden;    
+  font-weight: normal;
+  font-size: 16px;
+  font-style: italic;
+   color: #595959;
+}
+#Trust{
+   color: #001E5A;
+   font-size: 27px;
+   font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+   font-weight: lighter;
+   text-align: center;
+ padding: 50px 0px 0px;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 20px;
+  background-color: white;
+}
+
+.footer-column {
+  width: 30%; 
+}
+
+.footer-column h4 {
+  font-size: 18px;
+  color: #001E5A;
+  font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+  margin-bottom: 20px;
+  font-weight: lighter;
+}
+
+.footer-column p {
+  font-size: 13px;
+  color: #778A8e;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-count: 2;
+  column-gap: 20px;
+}
+
+.footer-list li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  position: relative;
+  padding-left: 25px;
+}
+
+.footer-list li:before {
+  content: "";
+  background-image: url("/images/list_style.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+.main-footer {
+  text-align: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  color:white;              
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  font-size: 14px;
+  border-top: 1px solid rgba(0,0,0,0.1); 
+  background-color: #52a9c9;
+  height: 50px;
+}
+

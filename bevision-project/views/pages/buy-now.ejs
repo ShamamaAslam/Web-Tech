@@ -1,0 +1,92 @@
+<%- include("../layouts/main", {
+  title: "Buy Now",
+  pageCss: "buy-now.css",
+  body: `
+    <div class="products-page">
+      <div class="products-head">
+        <h2>Buy Now</h2>
+        <p>Browse products with filters and pagination.</p>
+      </div>
+
+      <form class="filters" method="GET" action="/purchase">
+        <div class="field">
+          <label>Category</label>
+          <select name="category">
+            <option value="">All</option>
+            ${categories.map(c => `
+              <option value="${c}" ${query.category === c ? "selected" : ""}>${c}</option>
+            `).join("")}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Min Price</label>
+          <input type="number" name="min" value="${query.min || ""}">
+        </div>
+
+        <div class="field">
+          <label>Max Price</label>
+          <input type="number" name="max" value="${query.max || ""}">
+        </div>
+
+        <div class="field">
+          <label>Per Page</label>
+          <select name="limit">
+            ${[6,9,12,18].map(n => `
+              <option value="${n}" ${(String(query.limit || limit) === String(n)) ? "selected" : ""}>${n}</option>
+            `).join("")}
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Apply</button>
+          <a class="reset" href="/purchase">Reset</a>
+        </div>
+      </form>
+
+      <div class="products-grid">
+        ${items.length === 0 ? `<p class="no-results">No products found.</p>` : ""}
+       ${items.map(p => `
+  <div class="product-card">
+    <img src="${p.image || "/images/placeholder.jpg"}" alt="${p.name}">
+    <h3>${p.name}</h3>
+    <p class="cat">${p.category}</p>
+    <p class="price">Rs ${p.price}</p>
+    <p class="desc">${p.description || ""}</p>
+
+  <div class="bn-actions">
+ <form action="/cart/add/${p._id}" method="POST" style="display:inline;">
+  <button
+    type="submit"
+    class="bucket-btn"
+    title="Add to cart"
+    onclick="event.stopPropagation();"
+  >
+    🧺
+  </button>
+</form>
+
+
+  <a class="bn-buy-btn" href="/buy/${p._id}">Buy Now</a>
+</div>
+
+  </div>
+`).join("")}
+
+      </div>
+
+     <div class="pagination">
+  ${page > 1
+    ? `<a href="/purchase?${new URLSearchParams({ ...query, page: page - 1 }).toString()}">Prev</a>`
+    : `<span class="disabled">Prev</span>`}
+
+  <span class="pageinfo">Page ${page} of ${totalPages}</span>
+
+  ${page < totalPages
+    ? `<a href="/purchase?${new URLSearchParams({ ...query, page: page + 1 }).toString()}">Next</a>`
+    : `<span class="disabled">Next</span>`}
+</div>
+
+    </div>
+  `
+}) %>

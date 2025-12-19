@@ -1,0 +1,90 @@
+<%- include("../layouts/main", { title: "Order Preview" , pageCss: "checkout.css" , body: ` <div class="checkout-page">
+  <section class="ck-top">
+    <div class="ck-container">
+      <h1 class="ck-title">Review Order</h1>
+      <div class="ck-steps">
+        <div class="ck-step done">Cart</div>
+        <div class="ck-step done">Address</div>
+        <div class="ck-step done">Payment</div>
+        <div class="ck-step active">Review</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ck-container ck-grid">
+    <!-- LEFT: Order Details -->
+    <div class="ck-left">
+      <div class="ck-card">
+        <h2 class="ck-h2">Shipping Details</h2>
+        <div class="ck-row">
+          <div class="ck-field">
+            <label>Name</label>
+            <div class="ck-value">${buyer.name}</div>
+          </div>
+          <div class="ck-field">
+            <label>Email</label>
+            <div class="ck-value">${buyer.email}</div>
+          </div>
+        </div>
+        <div class="ck-row">
+          <div class="ck-field">
+            <label>Phone</label>
+            <div class="ck-value">${buyer.phone}</div>
+          </div>
+          <div class="ck-field">
+            <label>Address</label>
+            <div class="ck-value">${buyer.address}</div>
+          </div>
+        </div>
+        <div class="ck-row">
+          <div class="ck-field">
+            <label>Payment Method</label>
+            <div class="ck-value" style="text-transform:capitalize">${buyer.payMethod}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ck-card">
+        <h2 class="ck-h2">Order Items</h2>
+        ${orderItems.map(i => `
+        <div class="ck-product">
+          <img class="ck-img" src="${i.image || '/images/placeholder.jpg'}" alt="${i.name}" />
+          <div style="flex:1; margin-left:1rem;">
+            <div class="ck-pname">${i.name}</div>
+            <div class="ck-pcat">Qty: ${i.qty} x Rs ${i.price}</div>
+          </div>
+          <div class="ck-price-val">Rs ${i.price * i.qty}</div>
+        </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <!-- RIGHT: Payment Summary -->
+    <div class="ck-right">
+      <div class="ck-summary">
+        <h3 class="ck-h3">Summary</h3>
+
+        <div class="ck-price">
+          <div class="ck-item"><span>Subtotal</span><span>Rs ${subtotal}</span></div>
+          <div class="ck-item"><span>Shipping</span><span>Rs ${shipping}</span></div>
+          <div class="ck-item"><span>Tax</span><span>Rs ${tax}</span></div>
+          ${(typeof discount !== "undefined" && discount) ? `
+          <div class="ck-item" style="color: green; font-weight: bold;">
+            <span>Discount (${discount.code})</span>
+            <span>- Rs ${discount.amount}</span>
+          </div>
+          ` : ""}
+          <div class="ck-total"><span>Total</span><span>Rs ${total}</span></div>
+        </div>
+
+        <form action="/order/finalize" method="POST">
+          <button class="ck-btn" type="submit">Confirm Order</button>
+        </form>
+
+        <a class="ck-back" href="/checkout" style="margin-top: 1rem; display:block; text-align:center;">Edit Details</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  `
+  }) %>

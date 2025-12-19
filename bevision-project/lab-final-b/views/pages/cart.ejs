@@ -1,0 +1,55 @@
+<%- include("../layouts/main", {
+  title: title || "Your Cart",
+  pageCss: pageCss || "cart.css",
+  body: `
+    <div class="cart-wrap">
+      <h1>Your Cart</h1>
+  <a class="btn ghost" href="/purchase">Continue Shopping</a>
+
+      ${cart.length === 0 ? `
+        <p class="empty">Your cart is empty.</p>
+        <a class="btn" href="/buy-now">Continue shopping</a>
+      ` : `
+        <div class="cart-list">
+          ${cart.map(i => `
+            <div class="cart-item">
+              <img class="cart-img" src="${i.image || "/images/placeholder.png"}" alt="">
+              <div class="cart-info">
+                <h3>${i.name}</h3>
+                <p>Rs ${i.price}</p>
+
+                <div class="qty-row">
+                  <form action="/cart/dec/${i.productId}" method="POST">
+                    <button class="qty-btn" type="submit">−</button>
+                  </form>
+
+                  <span class="qty">${i.qty}</span>
+
+                  <form action="/cart/inc/${i.productId}" method="POST">
+                    <button class="qty-btn" type="submit">+</button>
+                  </form>
+
+                  <form action="/cart/remove/${i.productId}" method="POST" class="remove-form">
+                    <button class="remove-btn" type="submit">Remove</button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="line-total">
+                Rs ${i.price * i.qty}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+
+        <div class="cart-total">
+          <div class="total-row">
+            <span>Total</span>
+            <strong>Rs ${total}</strong>
+          </div>
+          <a class="btn" href="/order/preview">Checkout</a>
+        </div>
+      `}
+    </div>
+  `
+}) %>

@@ -1,0 +1,45 @@
+<%- include("../layouts/main", {
+  title: title || "Order Details",
+  pageCss: "admin.css",
+  body: `
+  <div class="admin-wrap">
+    <div class="admin-head">
+      <h1>Order Details</h1>
+      <div class="admin-nav">
+        <a class="pill" href="/admin/orders">← Back to Orders</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <p><b>Date:</b> ${new Date(order.createdAt).toLocaleString()}</p>
+      <p><b>Status:</b> ${order.status}</p>
+      <p><b>Total:</b> Rs ${order.total}</p>
+      <hr class="hr"/>
+      <h2>Buyer</h2>
+      <p><b>Name:</b> ${order.buyer?.name || "-"}</p>
+      <p><b>Email:</b> ${order.buyer?.email || "-"}</p>
+      <p><b>Phone:</b> ${order.buyer?.phone || "-"}</p>
+      <p><b>Address:</b> ${order.buyer?.address || "-"}</p>
+    </div>
+
+    <div class="panel">
+      <h2>Items</h2>
+      ${order.items?.length ? `
+        <table class="table">
+          <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Line Total</th></tr></thead>
+          <tbody>
+            ${order.items.map(i => `
+              <tr>
+                <td>${i.name}</td>
+                <td>${i.qty}</td>
+                <td>Rs ${i.price}</td>
+                <td>Rs ${i.price * i.qty}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      ` : `<p class="muted">No items found.</p>`}
+    </div>
+  </div>
+  `
+}) %>

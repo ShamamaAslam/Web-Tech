@@ -1,0 +1,47 @@
+<%- include("../layouts/main", {
+  title: title || "Edit Product",
+  pageCss: pageCss || "admin.css",
+  body: `
+  <div class="admin-wrap">
+    <div class="admin-head">
+      <h1>Edit Product</h1>
+      <div class="admin-nav">
+        <a class="pill" href="/admin/products">← Back to Products</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <form action="/admin/products/edit/${product._id}" method="POST" class="admin-form">
+        <div class="row">
+          <div class="field">
+            <label>Name</label>
+            <input name="name" value="${product.name || ""}" required />
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <input name="category" value="${product.category || ""}" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Price</label>
+            <input name="price" type="number" value="${product.price || 0}" required />
+          </div>
+          <div class="field">
+            <label>Image URL</label>
+            <input name="image" value="${product.image || ""}" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <textarea name="description" rows="5">${product.description || ""}</textarea>
+        </div>
+
+        <button class="admin-btn" type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  `
+}) %>

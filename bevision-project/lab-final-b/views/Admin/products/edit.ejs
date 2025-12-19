@@ -1,0 +1,46 @@
+<%- include("../layouts/admin", {
+  title,
+  body: `
+    <div class="page-head">
+      <div>
+        <h1>Edit Product</h1>
+        <p>Update product details.</p>
+      </div>
+      <a class="btn ghost" href="/admin/products">← Back</a>
+    </div>
+
+    <div class="card card-pad">
+      <form class="form" method="POST" action="/admin/products/${item._id}">
+        <div>
+          <label>Name</label>
+          <input name="name" required value="${item.name}" />
+        </div>
+
+        <div>
+          <label>Price</label>
+          <input name="price" type="number" min="0" required value="${item.price}" />
+        </div>
+
+        <div>
+          <label>Category</label>
+          <input name="category" required value="${item.category}" />
+        </div>
+
+        <div>
+          <label>Image</label>
+          <input name="image" value="${item.image || ""}" />
+        </div>
+
+        <div class="full">
+          <label>Description</label>
+          <textarea name="description">${item.description || ""}</textarea>
+        </div>
+
+        <div class="full actions">
+          <button class="btn primary" type="submit">Update</button>
+          <a class="btn ghost" href="/admin/products">Cancel</a>
+        </div>
+      </form>
+    </div>
+  `
+}) %>

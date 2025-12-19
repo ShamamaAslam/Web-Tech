@@ -1,0 +1,15 @@
+<%- include("../layouts/auth", {
+  title: "My Account",
+  pageCss: "auth.css",
+  body: `
+    <div class="auth-card">
+      <h2 class="auth-title">My Account</h2>
+      <p style="color:rgba(255,255,255,.85);margin-top:8px;">
+        Welcome! This is your account screen.
+      </p>
+
+      <a class="auth-link" href="/buy-now">Go to Products</a>
+      <a class="auth-link" href="/">← Back to Home</a>
+    </div>
+  `
+}) %>

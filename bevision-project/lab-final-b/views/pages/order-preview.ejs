@@ -1,0 +1,37 @@
+<%- include("../layouts/main", {
+  title: title,
+  pageCss: pageCss,
+  body: `
+    <div class="cart-wrap">
+      <h1>Order Preview</h1>
+
+      <div class="cart-list">
+        ${items.map(i => `
+          <div class="cart-item">
+            <img class="cart-img" src="${i.image || "/images/placeholder.jpg"}" alt="">
+            <div class="cart-info">
+              <h3>${i.name}</h3>
+              <p>Rs ${i.price} × ${i.qty}</p>
+            </div>
+            <div class="line-total">Rs ${i.price * i.qty}</div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="cart-total">
+        <div class="total-row">
+          <span>Grand Total</span>
+          <strong>Rs ${total}</strong>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:12px;">
+          <form method="POST" action="/order/confirm">
+            <button class="btn" type="submit">Confirm Order</button>
+          </form>
+
+          <a class="btn ghost" href="/cart">Go Back to Cart</a>
+        </div>
+      </div>
+    </div>
+  `
+}) %>

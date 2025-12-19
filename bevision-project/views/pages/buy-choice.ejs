@@ -1,0 +1,19 @@
+<%- include("../layouts/main", {
+  title: "Choose",
+  pageCss: "buy-choice.css",
+  body: `
+    <section style="padding:40px; text-align:center;">
+      <h1>What do you want to do?</h1>
+
+      <div style="margin-top:20px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="/appointments/new" class="btn-buy" style="text-decoration:none; padding:14px 22px; border-radius:8px; background:#c00; color:#fff;">
+          Book an Appointment
+        </a>
+
+        <a href="/purchase" class="btn-buy" style="text-decoration:none; padding:14px 22px; border-radius:8px; background:#111; color:#fff;">
+          Purchase Items
+        </a>
+      </div>
+    </section>
+  `
+}) %>

@@ -1,0 +1,189 @@
+.main-section {
+  box-shadow: 0 0 30px rgba(185, 180, 180, 0.3); 
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 1200px;
+  margin: 0 auto; 
+}
+.divback {
+  background-color: #e9f8ef;
+  position: relative;
+  margin-top: 0%;
+}
+body {
+  font-family: 'Cinzel', Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+header {
+  background-color: #183964;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px;
+  height: 75px;
+  position: relative; 
+  top: 20px;
+  left: 0; 
+  right: 0; 
+  z-index: 1000;
+}
+
+.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.hero-text {
+  margin:0px;
+  padding: 0px;}
+
+#Subheader{
+padding: 100px 10px 100px 36.6px;
+}
+.hero-text h1 {
+  font-size: 60px;
+  color: #001E5A;
+  font-family:  'Cinzel','Helevetica','Arial','sans-serif';
+  margin: 0px;
+}
+.hero-text p {
+  color: rgb(70, 68, 68);
+  font-size: 14px;
+  margin-bottom: 20px;
+   font-family: Georgia, 'Helevetica',Arial,sans-serif;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+.menu a:hover,
+.menu a.active {
+  background-color: rgba(119, 119, 146, 0.7);
+}
+.menu a.btn-buy {
+  color: rgb(68, 135, 211);
+}
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+#menu-toggle {
+  display: none;
+}
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+  .menu {
+    display: none;
+    flex-direction: column;
+    background: navy;
+    position: absolute;
+    top: 80px;
+    right: 30px;
+    padding: 20px;
+  }
+  #menu-toggle:checked + .menu-icon + .menu {
+    display: flex;
+  }
+}
+.os-wrap{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:30px 16px}
+.os-card{width:min(720px,100%);background:#fff;border:1px solid #eee;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,.08);padding:26px 22px;text-align:center}
+.os-icon{font-size:44px;margin-bottom:10px}
+.os-card h1{margin:0 0 8px;font-size:30px}
+.os-card p{margin:0 0 18px;color:#555;line-height:1.5}
+.os-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.os-btn{display:inline-block;padding:12px 16px;border-radius:12px;background:#111;color:#fff;text-decoration:none;font-weight:700}
+.os-btn.ghost{background:#fff;color:#111;border:1px solid #e5e5e5}
+.os-btn:hover{box-shadow:0 10px 18px rgba(0,0,0,.10)}
+
+#Trust{
+   color: #001E5A;
+   font-size: 27px;
+   font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+   font-weight: lighter;
+   text-align: center;
+ padding: 50px 0px 0px;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 20px;
+  background-color: #e9f8ef;
+}
+
+.footer-column {
+  width: 30%; 
+}
+
+.footer-column h4 {
+  font-size: 18px;
+  color: #001E5A;
+  font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+  margin-bottom: 20px;
+  font-weight: lighter;
+}
+
+.footer-column p {
+  font-size: 13px;
+  color: #778A8e;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-count: 2;
+  column-gap: 20px;
+}
+
+.footer-list li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  position: relative;
+  padding-left: 25px;
+}
+
+.footer-list li:before {
+  content: "";
+  background-image: url("/images/list_style.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+.main-footer {
+  text-align: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  color:white;              
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  font-size: 14px;
+  border-top: 1px solid rgba(0,0,0,0.1); 
+  background-color: #52a9c9;
+  height: 50px;
+}
+

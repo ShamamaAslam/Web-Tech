@@ -1,0 +1,68 @@
+<%- include("../layouts/main", {
+  title: title || "Book Appointment",
+  pageCss: pageCss || "appointment.css",
+  body: `
+  <section class="appt-wrap">
+    <div class="appt-card">
+      <h1 class="appt-title">Book Appointment</h1>
+
+      ${error ? `<div class="appt-alert">${error}</div>` : ""}
+
+      <form class="appt-form" method="POST" action="/appointments">
+        <div class="grid">
+
+          <div class="field">
+            <label>Full Name</label>
+            <input name="patientName" type="text" required />
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input name="patientEmail" type="email" required />
+          </div>
+
+          <div class="field">
+            <label>Phone</label>
+            <input name="phone" type="text" required />
+          </div>
+
+          <div class="field">
+            <label>Appointment Date</label>
+            <input id="apptDate" name="date" type="date" required />
+          </div>
+
+          <div class="field">
+            <label>Time</label>
+            <input name="time" type="text" value="10:00" readonly />
+            <small class="muted">Time is auto-set (10:00 AM)</small>
+          </div>
+
+          <div class="field field-full">
+            <label>Notes (optional)</label>
+            <textarea name="notes" rows="4"></textarea>
+          </div>
+
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-outline" href="/buy-now">Back</a>
+          <button class="btn btn-red" type="submit">Book Appointment</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const dateInput = document.getElementById("apptDate");
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const minDate = yyyy + "-" + mm + "-" + dd;
+      dateInput.min = minDate;
+      dateInput.value = minDate;
+    })();
+  </script>
+  `
+}) %>

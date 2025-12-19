@@ -1,0 +1,247 @@
+<% // Make everything safe even if route doesn't pass variables const errMsg=(typeof error !=="undefined" && error) ?
+  error : null; const _formAction=(typeof formAction !=="undefined" && formAction) ? formAction : "/checkout" ; const
+  _backUrl=(typeof backUrl !=="undefined" && backUrl) ? backUrl : "/purchase" ; const _orderItems=(typeof orderItems
+  !=="undefined" && Array.isArray(orderItems)) ? orderItems : []; const _subtotal=(typeof subtotal !=="undefined" &&
+  subtotal !==null) ? subtotal : 0; const _shipping=(typeof shipping !=="undefined" && shipping !==null) ? shipping : 0;
+  const _tax=(typeof tax !=="undefined" && tax !==null) ? tax : 0; const _total=(typeof total !=="undefined" && total
+  !==null) ? total : (_subtotal + _shipping + _tax); %>
+
+  <%- include("../layouts/main", { title: (typeof title !=="undefined" && title) ? title : "Checkout" ,
+    pageCss: "checkout.css" , body: ` <div class="checkout-page">
+
+    <section class="ck-top">
+      <div class="ck-container">
+        <h1 class="ck-title">Checkout</h1>
+        <div class="ck-steps">
+          <div class="ck-step done">Cart</div>
+          <div class="ck-step done">Address</div>
+          <div class="ck-step active">Payment</div>
+          <div class="ck-step">Review</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ck-container ck-grid">
+      <!-- LEFT -->
+      <div class="ck-left">
+
+        ${errMsg ? `<div class="ck-error">${errMsg}</div>` : ""}
+
+        <form id="checkoutForm" method="POST" action="${_formAction}">
+          <!-- Shipping -->
+          <div class="ck-card">
+            <h2 class="ck-h2">Shipping Information</h2>
+
+            <div class="ck-row">
+              <div class="ck-field">
+                <label>Full Name *</label>
+                <input name="fullName" type="text" required />
+              </div>
+              <div class="ck-field">
+                <label>Email *</label>
+                <input name="email" type="email" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                  title="Only @gmail.com email is allowed" />
+              </div>
+            </div>
+
+            <div class="ck-row">
+              <div class="ck-field">
+                <label>Phone *</label>
+                <input name="phone" id="phone" type="text" required placeholder="+92xxxxxxxxxx" />
+                <small id="phoneHint" class="muted"></small>
+              </div>
+              <div class="ck-field">
+                <label>Address *</label>
+                <input name="address" type="text" required />
+              </div>
+            </div>
+
+            <div class="ck-row">
+              <div class="ck-field">
+                <label>City *</label>
+                <input name="city" type="text" required />
+              </div>
+              <div class="ck-field">
+                <label>Postal Code *</label>
+                <input name="zip" type="text" required />
+              </div>
+              <div class="ck-field">
+                <label>Country *</label>
+                <select name="country" required>
+                  <option value="PK">Pakistan</option>
+                </select>
+              </div>
+            </div>
+
+            <label class="ck-check">
+              <input type="checkbox" name="sameBilling" value="yes" />
+              Billing address same as shipping
+            </label>
+          </div>
+
+          <!-- Payment -->
+          <div class="ck-card">
+            <h2 class="ck-h2">Payment Method</h2>
+
+            <div class="ck-paymethods">
+              <label class="ck-radio">
+                <input type="radio" name="payMethod" value="card" checked />
+                <span>Credit / Debit Card</span>
+              </label>
+
+              <label class="ck-radio">
+                <input type="radio" name="payMethod" value="cod" />
+                <span>Cash on Delivery</span>
+              </label>
+
+              <label class="ck-radio">
+                <input type="radio" name="payMethod" value="wallet" />
+                <span>Digital Wallet</span>
+              </label>
+            </div>
+
+            <!-- Card box -->
+            <div id="box-card" class="ck-paybox show">
+              <div class="ck-row">
+                <div class="ck-field">
+                  <label>Cardholder Name *</label>
+                  <input id="cardName" name="cardName" type="text" required />
+                </div>
+              </div>
+
+              <div class="ck-row">
+                <div class="ck-field">
+                  <label>Card Number *</label>
+                  <input id="cardNum" name="cardNum" type="text" placeholder="1234 5678 9012 3456" required />
+                </div>
+              </div>
+
+              <div class="ck-row">
+                <div class="ck-field">
+                  <label>Expiry *</label>
+                  <input id="cardExp" name="cardExp" type="text" placeholder="MM/YY" required />
+                </div>
+                <div class="ck-field">
+                  <label>CVV *</label>
+                  <input id="cardCvv" name="cardCvv" type="text" placeholder="123" required />
+                </div>
+              </div>
+            </div>
+
+            <!-- COD -->
+            <div id="box-cod" class="ck-paybox">
+              <div class="ck-info">
+                Pay when your order is delivered.
+              </div>
+            </div>
+
+            <!-- Wallet -->
+            <div id="box-wallet" class="ck-paybox">
+              <div class="ck-info">
+                You will be redirected to complete payment.
+              </div>
+            </div>
+          </div>
+
+          <div class="ck-card">
+            <h2 class="ck-h2">Review & Place Order</h2>
+
+            <div class="ck-row" style="margin-bottom: 2rem;">
+              <div class="ck-field">
+                <label>Coupon Code (Optional)</label>
+                <input name="coupon" type="text" placeholder="e.g. SAVE10"
+                  value="${(typeof couponCode!=='undefined') ? couponCode : ''}" />
+              </div>
+            </div>
+
+            <label class="ck-check">
+              <input id="agree" type="checkbox" />
+              I agree to the Terms and Conditions *
+            </label>
+
+            <button id="placeBtn" class="ck-btn" type="submit" disabled>
+              Place Order
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="ck-right">
+        <div class="ck-summary">
+          <h3 class="ck-h3">Order Summary</h3>
+
+          ${(_orderItems && _orderItems.length)
+          ? _orderItems.map(i => `
+          <div class="ck-product">
+            <img class="ck-img" src="${i.image || " /images/placeholder.jpg"}" alt="${i.name}" />
+            <div>
+              <div class="ck-pname">${i.name}</div>
+              <div class="ck-pcat">Qty: ${i.qty}</div>
+            </div>
+            <div>Rs ${i.price * i.qty}</div>
+          </div>
+          `).join("")
+          : `<p class="no-results">No items found.</p>`
+          }
+
+          <div class="ck-line"></div>
+
+          <div class="ck-price">
+            <div class="ck-item"><span>Subtotal</span><span id="sub">Rs ${_subtotal}</span></div>
+            <div class="ck-item"><span>Shipping</span><span id="ship">Rs ${_shipping}</span></div>
+            <div class="ck-item"><span>Tax</span><span id="tax">Rs ${_tax}</span></div>
+            <div class="ck-total"><span>Total</span><span id="total">Rs ${_total}</span></div>
+          </div>
+
+          <a class="ck-back" href="${_backUrl}">← Back</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showBox(v) {
+        document.querySelectorAll(".ck-paybox").forEach(b => b.classList.remove("show"));
+        const box = document.getElementById("box-" + v);
+        if (box) box.classList.add("show");
+
+        const req = (v === "card");
+        ["cardName", "cardNum", "cardExp", "cardCvv"].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.required = req;
+        });
+      }
+
+      document.querySelectorAll('input[name="payMethod"]').forEach(r => {
+        r.addEventListener("change", () => showBox(r.value));
+      });
+
+      const agree = document.getElementById("agree");
+      const placeBtn = document.getElementById("placeBtn");
+      if (agree && placeBtn) {
+        agree.addEventListener("change", () => {
+          placeBtn.disabled = !agree.checked;
+        });
+      }
+
+      const cardNum = document.getElementById("cardNum");
+      const cardExp = document.getElementById("cardExp");
+      const cardCvv = document.getElementById("cardCvv");
+
+      if (cardNum) cardNum.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/\\D/g, '').replace(/(.{4})/g, '$1 ').trim().slice(0, 19);
+      });
+      if (cardExp) cardExp.addEventListener("input", (e) => {
+        let v = e.target.value.replace(/\\D/g, '').slice(0, 4);
+        if (v.length >= 3) v = v.slice(0, 2) + "/" + v.slice(2);
+        e.target.value = v;
+      });
+      if (cardCvv) cardCvv.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/\\D/g, '').slice(0, 3);
+      });
+    </script>
+
+    </div>
+    `
+    }) %>
+    <script src="/js/checkout-validate.js"></script>

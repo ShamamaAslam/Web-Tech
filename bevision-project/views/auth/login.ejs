@@ -1,0 +1,30 @@
+<%- include("../layouts/main", {
+  title: "Login",
+  pageCss: "auth.css",
+  body: `
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1 class="auth-title">Login</h1>
+
+      ${error ? `<div class="auth-alert">${error}</div>` : ""}
+
+      <form class="auth-form" method="POST" action="/login">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input type="password" name="password" required />
+        </div>
+
+        <div class="auth-actions">
+          <button class="auth-btn" type="submit">Login</button>
+          <a class="auth-link" href="/register">Create account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  `
+}) %>

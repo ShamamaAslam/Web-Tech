@@ -1,0 +1,75 @@
+<%- include("../layouts/main", {
+  title: title || "Book Appointment",
+  pageCss: pageCss || "appointment.css",
+  body: `
+  <section class="appt-wrap">
+    <div class="appt-card">
+      <h1 class="appt-title">Book Appointment</h1>
+
+      ${error ? `<div class="appt-alert">${error}</div>` : ""}
+
+      <form class="appt-form" method="POST" action="/appointments">
+        <div class="grid">
+
+          <div class="field">
+            <label>Full Name</label>
+            <input name="patientName" type="text" required />
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input name="patientEmail" type="email" required />
+          </div>
+
+          <div class="field">
+            <label>Phone</label>
+            <input name="phone" type="text" required />
+          </div>
+
+          <div class="field">
+            <label>Appointment Date</label>
+            <input id="apptDate" name="date" type="date" required />
+          </div>
+
+          <div class="field">
+            <label>Appointment Time</label>
+            <select name="time" required>
+              <option value="">Select time</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="14:00">02:00 PM</option>
+              <option value="16:00">04:00 PM</option>
+              <option value="18:00">06:00 PM</option>
+            </select>
+            <small class="muted">Only available slots</small>
+          </div>
+
+          <div class="field field-full">
+            <label>Notes (optional)</label>
+            <textarea name="notes" rows="4" placeholder="Write notes..."></textarea>
+          </div>
+
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-outline" href="/buy-now">Back</a>
+          <button class="btn btn-red" type="submit">Book Appointment</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const dateInput = document.getElementById("apptDate");
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const minDate = yyyy + "-" + mm + "-" + dd;
+      dateInput.min = minDate;
+      dateInput.value = minDate;
+    })();
+  </script>
+  `
+}) %>

@@ -1,0 +1,65 @@
+<%- include("../layouts/main", { title: title, pageCss: pageCss, body: ` <div class="checkout-page">
+    <section class="ck-top">
+        <div class="ck-container">
+            <h1 class="ck-title">My Orders</h1>
+        </div>
+    </section>
+
+    <div class="ck-container">
+
+        <!-- Search Form -->
+        <div class="ck-card" style="max-width: 600px; margin: 0 auto;">
+            <h2 class="ck-h2">Find Your Orders</h2>
+            <form method="POST" action="/my-orders">
+                <div class="ck-row">
+                    <div class="ck-field">
+                        <label>Enter Email Address used during Checkout</label>
+                        <input type="email" name="email" value="${searchEmail || ''}" required
+                            placeholder="e.g. name@gmail.com" />
+                    </div>
+                    <button class="ck-btn" type="submit" style="margin-top: 1.5rem;">Search Orders</button>
+                </div>
+            </form>
+            ${error ? `<div class="ck-error" style="margin-top:1rem;">${error}</div>` : ""}
+        </div>
+
+        <!-- Results -->
+        ${(orders && orders.length > 0) ? `
+        <div class="ck-card" style="margin-top: 2rem;">
+            <h2 class="ck-h2">Order History for ${searchEmail}</h2>
+
+            <table style="width:100%; border-collapse: collapse; margin-top:1rem;">
+                <thead>
+                    <tr style="text-align:left; border-bottom: 1px solid #ddd;">
+                        <th style="padding:10px;">Order ID</th>
+                        <th style="padding:10px;">Date</th>
+                        <th style="padding:10px;">Status</th>
+                        <th style="padding:10px;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${orders.map(order => `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding:10px; font-family:monospace;">${order._id}</td>
+                        <td style="padding:10px;">${new Date(order.createdAt).toLocaleDateString()}</td>
+                        <td style="padding:10px;">
+                            <span style="
+                      padding:4px 8px; border-radius:4px; font-size:0.85rem;
+                      background: ${order.status === 'placed' ? '#e3f2fd' : '#eee'};
+                      color: ${order.status === 'placed' ? '#1976d2' : '#333'};
+                    ">
+                                ${order.status}
+                            </span>
+                        </td>
+                        <td style="padding:10px;">Rs ${order.total}</td>
+                    </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        </div>
+        ` : ""}
+
+    </div>
+    </div>
+    `
+    }) %>

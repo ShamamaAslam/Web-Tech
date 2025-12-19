@@ -1,0 +1,22 @@
+<%- include("../layouts/main", {
+  title: title || "Appointment Confirmed",
+  pageCss: pageCss || "appointment-success.css",
+  body: `
+    <section class="success-wrap">
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+
+        <h1 class="success-title">Appointment Booked!</h1>
+        <p class="success-text">
+          Your appointment request has been submitted successfully.
+          We’ll contact you soon with confirmation details.
+        </p>
+
+        <div class="success-actions">
+          <a class="btn btn-dark" href="/buy-now">Back to Choose</a>
+          <a class="btn btn-red" href="/">Go Home</a>
+        </div>
+      </div>
+    </section>
+  `
+}) %>
