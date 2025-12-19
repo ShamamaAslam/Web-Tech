@@ -1,0 +1,453 @@
+.main-section {
+  box-shadow: 0 0 30px rgba(185, 180, 180, 0.3); 
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 1200px;
+  margin: 0 auto; 
+}
+.divback {
+  background-image: url("images/home_vision_about_eye.png");
+  background-size: 125% auto; 
+  background-position: center top;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
+  margin-top: 0%;
+}
+body {
+  font-family: 'Cinzel', Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+header {
+  background-color: #183964;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px;
+  height: 75px;
+  position: relative; 
+  top: 20px;
+  left: 0; 
+  right: 0; 
+  z-index: 1000;
+}
+
+.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.hero-text {
+  margin:0px;
+  padding: 0px;}
+
+#Subheader{
+padding: 100px 10px 100px 36.6px;
+}
+.hero-text h1 {
+  font-size: 60px;
+  color: #001E5A;
+  font-family:  'Cinzel','Helevetica','Arial','sans-serif';
+  margin: 0px;
+}
+.hero-text p {
+  color: rgb(70, 68, 68);
+  font-size: 14px;
+  margin-bottom: 20px;
+   font-family: Georgia, 'Helevetica',Arial,sans-serif;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+.menu a:hover,
+.menu a.active {
+  background-color: rgba(119, 119, 146, 0.7);
+}
+.menu a.btn-buy {
+  color: rgb(68, 135, 211);
+}
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+#menu-toggle {
+  display: none;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+  .menu {
+    display: none;
+    flex-direction: column;
+    background: navy;
+    position: absolute;
+    top: 80px;
+    right: 30px;
+    padding: 20px;
+  }
+  #menu-toggle:checked + .menu-icon + .menu {
+    display: flex;
+  }
+}
+.info-section {
+  position: relative;
+  max-width: 1200px;
+  margin: -10px auto 20px;              
+  padding: 0;                        
+  z-index: 3;
+}
+.info-box {
+  background-color:white;         
+  padding: 60px 70px 50px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.info-box h2 {
+  font-size: 42px;
+  color: #001E5A;
+  font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+  margin: 0 0 20px;
+}
+
+.info-box p {
+  font-size: 16px;
+  color: #A8A8A8;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0 0 30px;
+}
+
+.info-box .dots {
+  width: 40px;
+  margin: 10px auto 25px;
+  display: block;
+}
+
+/* GRID CONTAINER */
+.Staffsec{
+  max-width: 1200px;
+  margin: 50px auto 0;
+  padding: 0 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
+}
+
+/* EACH STAFF CARD (article) */
+.staffcard{
+  background: #fff;
+  padding: 18px;
+  text-align: left;
+}
+
+/* IMAGE FRAME */
+.staffcard .image-frame{
+  background: #f5f6f7;
+  padding: 10px;
+  overflow: hidden;
+}
+
+/* IMAGE */
+.staffcard .image-frame img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* NAME */
+.staffcard h3{
+  margin: 14px 0 6px;
+  font-size: 21px;
+  font-family: 'Cinzel','Helvetica','Arial',sans-serif;
+  font-weight: 400;     /* lighter look like theme */
+  color: #1c2a4a;
+  text-transform: uppercase;
+}
+
+/* ROLE / SUBTITLE */
+.staffcard .subtitle{
+  margin: 0;
+  font-size: 14px;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  color: #778A8e;
+}
+
+/* BLUE LINE */
+.staffcard .staff-separator{
+  width: 90px;
+  height: 1px;
+  border: none;
+  background-color: #228CB3;
+  margin: 12px 0 18px;
+}
+
+/* DESCRIPTION */
+.staffcard .desc{
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  color: #A8A8A8;
+}
+
+/* SOCIAL ICONS ROW */
+.staffcard .staff-social{
+  display: flex;
+  gap: 0;
+}
+
+/* SOCIAL ICON BAR */
+.staff-social{
+  display: flex;
+}
+
+/* BUTTON */
+.icon-btn{
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #e6eaee;
+  overflow: hidden;
+  background: #fff;
+  text-decoration: none;
+}
+
+/* ICON LAYERS */
+.icon-btn .icon{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.28s ease;
+}
+
+/* DEFAULT ICON */
+.icon-btn .normal{
+  color: #444;
+  transform: translateY(0);
+}
+
+/* HOVER ICON (START BELOW) */
+.icon-btn .hover{
+  color: #228CB3;
+  transform: translateY(100%);
+}
+
+/* SLIDE UP EFFECT */
+.icon-btn:hover .normal{
+  transform: translateY(-100%);
+}
+
+.icon-btn:hover .hover{
+  transform: translateY(0);
+}
+
+/* ICON SIZE */
+.icon-btn i{
+  font-size: 15px;
+}
+/* RESPONSIVE */
+@media (max-width: 1024px){
+  .Staffsec{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px){
+  .Staffsec{ grid-template-columns: 1fr; }
+}
+
+.testimonials {
+  background-color: white;   
+  padding: 70px 40px 90px;
+  text-align: center;
+}
+.testimonials h2 {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin-bottom: 60px;
+  color: #1c3d6f;
+  font-family: 'Cinzel','Helvetica','Arial',sans-serif;
+}
+/* GRID */
+.testimonial-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+}
+.testimonial{
+  position: relative;
+  text-align: left;
+}
+
+/* the big quote BEHIND */
+.testimonial .quote{
+  position: absolute;
+  top: -40px;
+  left: -30px;
+  font-size: 170px;
+  line-height: 1;
+  color: #e6e6e6;
+  font-family: Georgia, serif;
+  z-index: 0;
+  pointer-events: none;
+}
+/* TEXT */
+.testimonial p {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+/* AUTHOR */
+.testimonial .author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.testimonial .icon {
+  font-size: 14px;
+  opacity: 0.7;
+}
+.testimonial .name {
+  color: #d64545; /* red names */
+}
+
+.testimonial .name.highlight {
+  color: #d64545;
+}
+/* TESTIMONIALS (BeTheme blockquote style) */
+.testimonial-grid blockquote{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-family: 'Cinzel','Helvetica','Arial',sans-serif;
+  font-size: 17px;
+  line-height: 31px;
+  color: #444;
+}
+
+.testimonial-grid cite{
+  display: block;
+  margin-top: 15px;
+  font-style: normal;
+  font-size: 14px;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  color: #d64545;
+}
+
+/*lines under text*/
+.testimonial-grid blockquote{
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 30px,
+    #eeeeee 30px,
+    #eeeeee 31px
+  );
+}
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+#Trust{
+   color: #001E5A;
+   font-size: 27px;
+   font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+   font-weight: lighter;
+   text-align: center;
+ padding: 50px 0px 0px;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 20px;
+  background-color: white;
+}
+
+.footer-column {
+  width: 30%; 
+}
+
+.footer-column h4 {
+  font-size: 18px;
+  color: #001E5A;
+  font-family: 'Cinzel','Helvetica','Arial','sans-serif';
+  margin-bottom: 20px;
+  font-weight: lighter;
+}
+
+.footer-column p {
+  font-size: 13px;
+  color: #778A8e;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-count: 2;
+  column-gap: 20px;
+}
+
+.footer-list li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  position: relative;
+  padding-left: 25px;
+}
+
+.footer-list li:before {
+  content: "";
+  background-image: url("images/list_style.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+.main-footer {
+  text-align: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  color:white;              
+  font-family: Georgia, 'Helvetica', Arial, sans-serif;
+  font-size: 14px;
+  border-top: 1px solid rgba(0,0,0,0.1); 
+  background-color: #52a9c9;
+  height: 50px;
+}
+

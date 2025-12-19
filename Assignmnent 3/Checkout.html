@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .top {
+      background: #f8f9fa;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+    
+    .side {
+      position: sticky;
+      top: 20px;
+    }
+    
+    .pay-box {
+      display: none;
+    }
+    
+    .pay-box.show {
+      display: block;
+    }
+    
+    .part {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress Steps -->
+  <section class="top">
+    <div class="container">
+      <h1 class="h3 mb-4">Checkout</h1>
+      <ul class="nav nav-pills nav-justified">
+        <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Address</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Payment</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="#">Review</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <!-- Left Column - Forms -->
+      <div class="col-lg-8">
+        <!-- Shipping Info -->
+        <section class="part">
+          <h2 class="h4 mb-3">Shipping Information</h2>
+          <form id="main-form">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="user-name" class="form-label">Full Name *</label>
+                <input type="text" class="form-control" id="user-name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="user-email" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="user-email" required>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="user-phone" class="form-label">Phone *</label>
+                <input type="tel" class="form-control" id="user-phone" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="user-address" class="form-label">Address *</label>
+                <input type="text" class="form-control" id="user-address" required>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="user-city" class="form-label">City *</label>
+                <input type="text" class="form-control" id="user-city" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="user-zip" class="form-label">Postal Code *</label>
+                <input type="text" class="form-control" id="user-zip" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="user-country" class="form-label">Country *</label>
+                <select class="form-select" id="user-country" required>
+                  <option value="">Select Country</option>
+                  <option value="US">United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="same-address">
+              <label class="form-check-label" for="same-address">
+                Billing address same as shipping
+              </label>
+            </div>
+          </form>
+        </section>
+
+        <!-- Payment Method -->
+        <section class="part">
+          <h2 class="h4 mb-3">Payment Method</h2>
+          
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="pay-method" id="pay-card" value="card" checked>
+              <label class="form-check-label" for="pay-card">Credit/Debit Card</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="pay-method" id="pay-cod" value="cod">
+              <label class="form-check-label" for="pay-cod">Cash on Delivery</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="pay-method" id="pay-wallet" value="wallet">
+              <label class="form-check-label" for="pay-wallet">Digital Wallet</label>
+            </div>
+          </div>
+
+          <!-- Card Details -->
+          <div id="box-card" class="pay-box show">
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label for="card-name" class="form-label">Cardholder Name *</label>
+                <input type="text" class="form-control" id="card-name" required>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="card-num" class="form-label">Card Number *</label>
+                <input type="text" class="form-control" id="card-num" placeholder="1234 5678 9012 3456" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="card-exp" class="form-label">Expiry Date *</label>
+                <input type="text" class="form-control" id="card-exp" placeholder="MM/YY" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="card-cvv" class="form-label">CVV *</label>
+                <input type="text" class="form-control" id="card-cvv" placeholder="123" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- COD Message -->
+          <div id="box-cod" class="pay-box">
+            <div class="alert alert-info">
+              <p class="mb-0">Pay when your order is delivered.</p>
+            </div>
+          </div>
+
+          <!-- Wallet Message -->
+          <div id="box-wallet" class="pay-box">
+            <div class="alert alert-info">
+              <p class="mb-0">You will be redirected to complete payment.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Review & Place Order -->
+        <section class="part">
+          <h2 class="h4 mb-3">Review & Place Order</h2>
+          
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="agree-terms">
+            <label class="form-check-label" for="agree-terms">
+              I agree to the Terms and Conditions *
+            </label>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-lg w-100" id="order-btn" disabled>
+            Place Order
+          </button>
+        </section>
+      </div>
+
+      <!-- Right Column - Order Summary -->
+      <div class="col-lg-4">
+        <div class="card side">
+          <div class="card-header">
+            <h3 class="h5 mb-0">Order Summary</h3>
+          </div>
+          <div class="card-body">
+            <!-- Product List -->
+            <div class="mb-3">
+              <div class="item">
+                <span>Camera Lens</span>
+                <span>$299.99</span>
+              </div>
+              <div class="item">
+                <span>Tripod Stand</span>
+                <span>$89.99</span>
+              </div>
+              <div class="item">
+                <span>Cleaning Kit</span>
+                <span>$24.99</span>
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- Coupon Section -->
+            <div class="mb-3">
+              <label for="coupon-code" class="form-label">Apply Coupon</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="coupon-code" placeholder="Enter code">
+                <button class="btn btn-outline-secondary" type="button">Apply</button>
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- Price Breakdown -->
+            <div class="mb-2">
+              <div class="item">
+                <span>Subtotal</span>
+                <span>$414.97</span>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="item">
+                <span>Shipping</span>
+                <span>$15.00</span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="item">
+                <span>Tax</span>
+                <span>$33.20</span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="item fw-bold fs-5">
+                <span>Total</span>
+                <span>$463.17</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Payment method toggle
+    document.querySelectorAll('input[name="pay-method"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        // Hide all payment boxes
+        document.querySelectorAll('.pay-box').forEach(box => {
+          box.classList.remove('show');
+        });
+        
+        // Show selected payment box
+        const selectedBox = 'box-' + this.value;
+        document.getElementById(selectedBox).classList.add('show');
+        
+        // Toggle required fields for card payment
+        const cardInputs = document.querySelectorAll('#box-card input');
+        cardInputs.forEach(input => {
+          input.required = this.value === 'card';
+        });
+      });
+    });
+
+    // Terms checkbox validation
+    document.getElementById('agree-terms').addEventListener('change', function() {
+      document.getElementById('order-btn').disabled = !this.checked;
+    });
+
+    // Form validation
+    document.getElementById('order-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const mainForm = document.getElementById('main-form');
+      if (!mainForm.checkValidity()) {
+        mainForm.reportValidity();
+        return;
+      }
+      
+      // Check card details if card payment is selected
+      const cardSelected = document.getElementById('pay-card').checked;
+      if (cardSelected) {
+        const cardInputs = document.querySelectorAll('#box-card input');
+        let cardValid = true;
+        
+        cardInputs.forEach(input => {
+          if (!input.checkValidity()) {
+            cardValid = false;
+            input.reportValidity();
+          }
+        });
+        
+        if (!cardValid) return;
+      }
+      
+      // If all validations pass
+      alert('Order placed successfully!');
+    });
+  </script>
+</body>
+</html>

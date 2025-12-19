@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Posts App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #f8f9fa; padding-top: 20px; }
+    .card { border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .card-header { background-color: #4e73df; color: white; font-weight: 600; }
+    .table th { background-color: #4e73df; color: white; }
+    .loading { display: none; text-align: center; padding: 20px; }
+    .empty { text-align: center; padding: 40px; color: #6c757d; }
+    .btn-small { width: 36px; margin: 0 2px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center text-primary mb-4"><i class="fas fa-newspaper"></i> Simple Posts App</h1>
+
+    <div class="row">
+      <!-- Form -->
+      <div class="col-lg-4 mb-4">
+        <div class="card">
+          <div class="card-header">Add or Edit Post</div>
+          <div class="card-body">
+            <form id="postForm">
+              <input type="hidden" id="postId">
+              <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" id="postTitle" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Content</label>
+                <textarea id="postBody" class="form-control" rows="4" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">User ID</label>
+                <input type="number" id="postUser" class="form-control" min="1" max="10" value="1" required>
+              </div>
+              <button class="btn btn-success w-100" id="saveBtn"><i class="fas fa-plus"></i> Create Post</button>
+              <button type="button" class="btn btn-secondary w-100 mt-2" id="cancelBtn" style="display:none;"><i class="fas fa-times"></i> Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Posts List -->
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-list"></i> Posts List</span>
+            <button class="btn btn-sm btn-outline-primary" id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+          </div>
+          <div class="card-body p-0">
+            <div class="loading" id="loading">
+              <div class="spinner-border text-primary"></div>
+              <p>Loading posts...</p>
+            </div>
+            <div id="postsList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap & jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      const API = "https://jsonplaceholder.typicode.com/posts";
+      let allPosts = [];
+      let editMode = false;
+
+      loadPosts();
+
+      // When form is submitted (add or edit)
+      $('#postForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const newPost = {
+          title: $('#postTitle').val(),
+          body: $('#postBody').val(),
+          userId: parseInt($('#postUser').val())
+        };
+
+        if (editMode) {
+          updatePost($('#postId').val(), newPost);
+        } else {
+          createPost(newPost);
+        }
+      });
+
+      // Cancel edit
+      $('#cancelBtn').click(function() {
+        resetForm();
+      });
+
+      // Refresh posts
+      $('#refreshBtn').click(function() {
+        loadPosts();
+      });
+
+      // ===== FUNCTIONS =====
+      function loadPosts() {
+        showLoading(true);
+        $.get(API, function(data) {
+          allPosts = data.slice(0, 10);
+          showPosts();
+          showLoading(false);
+        }).fail(function() {
+          alert("Failed to load posts.");
+          showLoading(false);
+        });
+      }
+
+      function createPost(post) {
+        showLoading(true);
+        $.ajax({
+          url: API,
+          method: "POST",
+          data: JSON.stringify(post),
+          contentType: "application/json",
+          success: function(data) {
+            data.id = allPosts.length ? Math.max(...allPosts.map(p => p.id)) + 1 : 1;
+            allPosts.unshift(data);
+            showPosts();
+            resetForm();
+            alert("Post added successfully!");
+            showLoading(false);
+          },
+          error: function() {
+            alert("Error adding post.");
+            showLoading(false);
+          }
+        });
+      }
+
+      function updatePost(id, post) {
+        showLoading(true);
+        $.ajax({
+          url: `${API}/${id}`,
+          method: "PUT",
+          data: JSON.stringify({...post, id: parseInt(id)}),
+          contentType: "application/json",
+          success: function() {
+            const index = allPosts.findIndex(p => p.id == id);
+            if (index !== -1) allPosts[index] = {...allPosts[index], ...post};
+            showPosts();
+            resetForm();
+            alert("Post updated successfully!");
+            showLoading(false);
+          },
+          error: function() {
+            alert("Error updating post.");
+            showLoading(false);
+          }
+        });
+      }
+
+      function deletePost(id) {
+        if (!confirm("Delete this post?")) return;
+        showLoading(true);
+        $.ajax({
+          url: `${API}/${id}`,
+          method: "DELETE",
+          success: function() {
+            allPosts = allPosts.filter(p => p.id != id);
+            showPosts();
+            alert("Post deleted successfully!");
+            showLoading(false);
+          },
+          error: function() {
+            alert("Error deleting post.");
+            showLoading(false);
+          }
+        });
+      }
+
+      function editPost(id) {
+        const post = allPosts.find(p => p.id == id);
+        if (post) {
+          $('#postId').val(post.id);
+          $('#postTitle').val(post.title);
+          $('#postBody').val(post.body);
+          $('#postUser').val(post.userId);
+
+          $('#saveBtn').html('<i class="fas fa-save"></i> Update Post').removeClass('btn-success').addClass('btn-primary');
+          $('#cancelBtn').show();
+          editMode = true;
+        }
+      }
+
+      function showPosts() {
+        let html = '';
+        if (allPosts.length === 0) {
+          html = `<div class="empty"><i class="fas fa-inbox fa-2x"></i><p>No posts yet</p></div>`;
+        } else {
+          html = `<div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <thead><tr>
+                        <th>ID</th><th>Title</th><th>Content</th><th>User</th><th>Actions</th>
+                      </tr></thead><tbody>`;
+          allPosts.forEach(p => {
+            html += `<tr>
+                      <td>${p.id}</td>
+                      <td>${p.title.substring(0, 30)}</td>
+                      <td>${p.body.substring(0, 50)}...</td>
+                      <td>${p.userId}</td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm btn-small editBtn" data-id="${p.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-outline-danger btn-sm btn-small deleteBtn" data-id="${p.id}"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>`;
+          });
+          html += `</tbody></table></div>`;
+        }
+        $('#postsList').html(html);
+
+        // Attach click actions
+        $('.editBtn').click(function() {
+          editPost($(this).data('id'));
+        });
+        $('.deleteBtn').click(function() {
+          deletePost($(this).data('id'));
+        });
+      }
+
+      function resetForm() {
+        $('#postForm')[0].reset();
+        $('#postId').val('');
+        $('#saveBtn').html('<i class="fas fa-plus"></i> Create Post').removeClass('btn-primary').addClass('btn-success');
+        $('#cancelBtn').hide();
+        $('#postUser').val(1);
+        editMode = false;
+      }
+
+      function showLoading(isLoading) {
+        if (isLoading) {
+          $('#loading').show();
+          $('#postsList').hide();
+        } else {
+          $('#loading').hide();
+          $('#postsList').show();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
